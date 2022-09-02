@@ -152,7 +152,7 @@ export function DataSourceInfoView(): JSX.Element {
       endTimeRef={endTimeRef}
       playerName={playerName}
       playerPresence={playerPresence}
-      startTime={endTime}
+      startTime={startTime}
     />
   );
 }
