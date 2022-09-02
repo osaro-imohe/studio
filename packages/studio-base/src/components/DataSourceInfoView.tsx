@@ -75,7 +75,12 @@ function DataSourceInfoContent(props: {
         ) : startTime ? (
           <Timestamp horizontal time={startTime} />
         ) : (
-          <Typography className={classes.numericValue} variant="inherit" color="text.secondary">
+          <Typography
+            className={classes.numericValue}
+            fontFamily={fonts.MONOSPACE}
+            variant="inherit"
+            color="text.secondary"
+          >
             &mdash;
           </Typography>
         )}
@@ -88,7 +93,12 @@ function DataSourceInfoContent(props: {
         {playerPresence === PlayerPresence.INITIALIZING ? (
           <Skeleton animation="wave" width="50%" />
         ) : (
-          <Typography className={classes.numericValue} variant="inherit" ref={endTimeRef}>
+          <Typography
+            className={classes.numericValue}
+            fontFamily={fonts.MONOSPACE}
+            variant="inherit"
+            ref={endTimeRef}
+          >
             &mdash;
           </Typography>
         )}
@@ -101,7 +111,12 @@ function DataSourceInfoContent(props: {
         {playerPresence === PlayerPresence.INITIALIZING ? (
           <Skeleton animation="wave" width={100} />
         ) : (
-          <Typography className={classes.numericValue} variant="inherit" ref={durationRef}>
+          <Typography
+            className={classes.numericValue}
+            fontFamily={fonts.MONOSPACE}
+            variant="inherit"
+            ref={durationRef}
+          >
             &mdash;
           </Typography>
         )}
