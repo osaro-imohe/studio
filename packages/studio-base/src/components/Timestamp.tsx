@@ -10,7 +10,7 @@ import Stack from "@foxglove/studio-base/components/Stack";
 import { useAppTimeFormat } from "@foxglove/studio-base/hooks";
 import { formatDate } from "@foxglove/studio-base/util/formatTime";
 import { fonts } from "@foxglove/studio-base/util/sharedStyleConstants";
-import { formatTimeRaw } from "@foxglove/studio-base/util/time";
+import { isAbsoluteTime, formatTimeRaw } from "@foxglove/studio-base/util/time";
 
 type Props = {
   disableDate?: boolean;
@@ -18,13 +18,6 @@ type Props = {
   time: Time;
   timezone?: string;
 };
-
-const DURATION_20_YEARS_SEC = 20 * 365 * 24 * 60 * 60;
-
-// Values "too small" to be absolute epoch-based times are probably relative durations.
-function isAbsoluteTime(time: Time): boolean {
-  return time.sec > DURATION_20_YEARS_SEC;
-}
 
 export default function Timestamp(props: Props): JSX.Element {
   const { disableDate = false, horizontal = false, time, timezone } = props;

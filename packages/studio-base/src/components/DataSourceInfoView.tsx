@@ -16,8 +16,9 @@ import Timestamp from "@foxglove/studio-base/components/Timestamp";
 import { useAppTimeFormat } from "@foxglove/studio-base/hooks";
 import { subtractTimes } from "@foxglove/studio-base/players/UserNodePlayer/nodeTransformerWorker/typescript/userUtils/time";
 import { PlayerPresence } from "@foxglove/studio-base/players/types";
-import { formatDuration } from "@foxglove/studio-base/util/formatTime";
+import { formatDate, formatDuration } from "@foxglove/studio-base/util/formatTime";
 import { fonts } from "@foxglove/studio-base/util/sharedStyleConstants";
+import { formatTimeRaw, isAbsoluteTime } from "@foxglove/studio-base/util/time";
 
 import { MultilineMiddleTruncate } from "./MultilineMiddleTruncate";
 
@@ -34,12 +35,12 @@ const selectPlayerPresence = ({ playerState }: MessagePipelineContext) => player
 
 function DataSourceInfoContent(props: {
   durationRef: MutableRefObject<ReactNull | HTMLDivElement>;
+  endTimeRef?: MutableRefObject<ReactNull | HTMLDivElement>;
   playerName?: string;
   playerPresence: PlayerPresence;
-  endTime?: Time;
   startTime?: Time;
 }): JSX.Element {
-  const { durationRef, endTime, playerName, playerPresence, startTime } = props;
+  const { durationRef, endTimeRef, playerName, playerPresence, startTime } = props;
   const { classes } = useStyles();
 
   return (
@@ -86,10 +87,8 @@ function DataSourceInfoContent(props: {
         </Typography>
         {playerPresence === PlayerPresence.INITIALIZING ? (
           <Skeleton animation="wave" width="50%" />
-        ) : endTime ? (
-          <Timestamp horizontal time={endTime} />
         ) : (
-          <Typography className={classes.numericValue} variant="inherit" color="text.secondary">
+          <Typography className={classes.numericValue} variant="inherit" ref={endTimeRef}>
             &mdash;
           </Typography>
         )}
@@ -121,6 +120,7 @@ export function DataSourceInfoView(): JSX.Element {
   const playerName = useMessagePipeline(selectPlayerName);
   const playerPresence = useMessagePipeline(selectPlayerPresence);
   const durationRef = useRef<HTMLDivElement>(ReactNull);
+  const endTimeRef = useRef<HTMLDivElement>(ReactNull);
   const { formatTime } = useAppTimeFormat();
 
   // We bypass react and update the DOM elements directly for better performance here.
@@ -134,15 +134,25 @@ export function DataSourceInfoView(): JSX.Element {
         durationRef.current.innerText = EmDash;
       }
     }
+    if (endTimeRef.current) {
+      if (endTime) {
+        const date = formatDate(endTime, undefined);
+        endTimeRef.current.innerText = !isAbsoluteTime(endTime)
+          ? `${formatTimeRaw(endTime)}`
+          : `${date} ${formatTime(endTime)}`;
+      } else {
+        endTimeRef.current.innerHTML = EmDash;
+      }
+    }
   }, [endTime, formatTime, startTime, playerPresence]);
 
   return (
     <MemoDataSourceInfoContent
       durationRef={durationRef}
+      endTimeRef={endTimeRef}
       playerName={playerName}
       playerPresence={playerPresence}
       startTime={startTime}
-      endTime={endTime}
     />
   );
 }
