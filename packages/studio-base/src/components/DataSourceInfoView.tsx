@@ -35,7 +35,7 @@ const selectPlayerPresence = ({ playerState }: MessagePipelineContext) => player
 
 function DataSourceInfoContent(props: {
   durationRef: MutableRefObject<ReactNull | HTMLDivElement>;
-  endTimeRef?: MutableRefObject<ReactNull | HTMLDivElement>;
+  endTimeRef: MutableRefObject<ReactNull | HTMLDivElement>;
   playerName?: string;
   playerPresence: PlayerPresence;
   startTime?: Time;
