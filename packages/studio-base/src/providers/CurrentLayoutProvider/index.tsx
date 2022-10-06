@@ -242,8 +242,9 @@ export default function CurrentLayoutProvider({
       }
 
       if (event.layoutId === layoutStateRef.current.selectedLayout.id) {
-        await setSelectedLayoutId(undefined);
-        enqueueSnackbar("Your active layout was deleted.", { variant: "warning" });
+        const layouts = await layoutManager.getLayouts();
+        const currLayout = layouts[layouts.length - 1];
+        await setSelectedLayoutId(currLayout?.id ?? undefined);
       }
     };
 
