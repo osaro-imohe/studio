@@ -16,9 +16,9 @@ import TestUtils from "react-dom/test-utils";
 import { useAsync } from "react-use";
 
 import MockMessagePipelineProvider from "@foxglove/studio-base/components/MessagePipeline/MockMessagePipelineProvider";
-import delay from "@foxglove/studio-base/src/util/delay";
 import { triggerWheel } from "@foxglove/studio-base/stories/PanelSetup";
 import { useReadySignal } from "@foxglove/studio-base/stories/ReadySignalContext";
+import delay from "@foxglove/studio-base/util/delay";
 
 import TimeBasedChart, { TimeBasedChartTooltipData } from "./index";
 import type { Props } from "./index";

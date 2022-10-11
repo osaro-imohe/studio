@@ -19,7 +19,7 @@ import Logger from "@foxglove/log";
 import Stack from "@foxglove/studio-base/components/Stack";
 import { useConsoleApi } from "@foxglove/studio-base/context/ConsoleApiContext";
 import { Session } from "@foxglove/studio-base/services/ConsoleApi";
-import delay from "@foxglove/studio-base/src/util/delay";
+import delay from "@foxglove/studio-base/util/delay";
 import { fonts } from "@foxglove/studio-base/util/sharedStyleConstants";
 
 const log = Logger.getLogger(__filename);
