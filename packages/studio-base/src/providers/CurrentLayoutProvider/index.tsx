@@ -243,8 +243,7 @@ export default function CurrentLayoutProvider({
 
       if (event.layoutId === layoutStateRef.current.selectedLayout.id) {
         const layouts = await layoutManager.getLayouts();
-        const currLayout = layouts[0];
-        await setSelectedLayoutId(currLayout?.id ?? undefined);
+        await setSelectedLayoutId(layouts[0]?.id);
       }
     };
 
